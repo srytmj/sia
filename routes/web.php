@@ -29,6 +29,6 @@ Route::middleware('auth')->group(function () {
 });
 
 use App\Http\Controllers\MasterDataController;
-Route::get('/masterdata/{table}', [MasterDataController::class, 'index']);
+Route::get('/masterdata/{table}', [MasterDataController::class, 'index'])->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

@@ -1,3 +1,4 @@
+   
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
         <div class="loader-track">
@@ -13,7 +14,8 @@
 
                 <div class="">
                     <div class="main-menu-header">
-                        <img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="User-Profile-Image">
+                        <img class="img-radius" src="{{ asset('assets/images/user/avatar-2.jpg') }}"
+                            alt="User-Profile-Image">
 
                         <div class="user-details">
                             <div id="more-details">{{ $user->username }}<i class="fa fa-caret-down"></i></div>
@@ -38,7 +40,7 @@
                             <label>{{ $menuItems->first()->nama_menu }}</label>
                         </li> --}}
                         <li class="nav-item pcoded-hasmenu">
-                            <a href="#!" class="nav-link">
+                            <a class="nav-link">
                                 <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
                                 <span class="pcoded-mtext">{{ $menuItems->first()->nama_menu }}</span>
                             </a>

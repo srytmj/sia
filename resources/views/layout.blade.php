@@ -8,6 +8,7 @@
         ->join('user_menu as um', 'uam.id_menu', '=', 'um.id_menu')
         ->join('user_menu_sub as ums', 'um.id_menu', '=', 'ums.id_menu')
         ->where('u.username', $user->username)
+        ->distinct()
         ->select(
             'um.id_menu',
             'um.nama_menu',
@@ -24,10 +25,23 @@
 
 @include('partials.head')
 
+{{-- <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End --> --}}
+
 @include('partials.sidebar')
 
 @include('partials.header')
-
+<!-- Required Js -->
+<script src="{{ asset('assets/js/vendor-all.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/ripple.js') }}"></script>
+<script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
+<script src="{{ asset('assets/js/menu-setting.min.js') }}"></script>
 @yield('content')
 
-@include('partials.footer')
+{{-- @include('partials.footer') --}}

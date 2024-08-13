@@ -4,9 +4,9 @@
 
     <div class="m-header">
         <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-        <a href="#!" class="b-brand">
+        <a href="/dashboard" class="b-brand">
             <!-- ========   change your logo hear   ============ -->
-            <img src="assets/images/logo.png" alt="" class="logo">
+            <img src="{{asset('assets/images/logo.png')}}" alt="" class="logo">
 
         </a>
         <a href="#!" class="mob-toggler">
@@ -44,7 +44,7 @@
                             </li>
                             <li class="notification">
                                 <div class="media">
-                                    <img class="img-radius" src="assets/images/user/avatar-1.jpg"
+                                    <img class="img-radius" src="{{asset('assets/images/user/avatar-1.jpg')}}"
                                         alt="Generic placeholder image">
                                     <div class="media-body">
                                         <p><strong>John Doe</strong><span class="n-time text-muted"><i
@@ -58,7 +58,7 @@
                             </li>
                             <li class="notification">
                                 <div class="media">
-                                    <img class="img-radius" src="assets/images/user/avatar-2.jpg"
+                                    <img class="img-radius" src="{{asset('assets/images/user/avatar-2.jpg')}}"
                                         alt="Generic placeholder image">
                                     <div class="media-body">
                                         <p><strong>Joseph William</strong><span class="n-time text-muted"><i
@@ -69,7 +69,7 @@
                             </li>
                             <li class="notification">
                                 <div class="media">
-                                    <img class="img-radius" src="assets/images/user/avatar-1.jpg"
+                                    <img class="img-radius" src="{{asset('assets/images/user/avatar-1.jpg')}}"
                                         alt="Generic placeholder image">
                                     <div class="media-body">
                                         <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i
@@ -80,7 +80,7 @@
                             </li>
                             <li class="notification">
                                 <div class="media">
-                                    <img class="img-radius" src="assets/images/user/avatar-2.jpg"
+                                    <img class="img-radius" src="{{asset('assets/images/user/avatar-2.jpg')}}"
                                         alt="Generic placeholder image">
                                     <div class="media-body">
                                         <p><strong>Joseph William</strong><span class="n-time text-muted"><i
@@ -103,7 +103,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
                         <div class="pro-head">
-                            <img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
+                            <img src="{{asset('assets/images/user/avatar-1.jpg')}}" class="img-radius" alt="User-Profile-Image">
                             <span>John Doe</span>
                             <a href="auth-signin.html" class="dud-logout" title="Logout">
                                 <i class="feather icon-log-out"></i>
