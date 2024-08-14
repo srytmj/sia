@@ -12,54 +12,28 @@ return new class extends Migration
      */
     public function up()
     {
-        // Migrasi untuk tabel kategori_perusahaan
-        Schema::create('kategori_perusahaan', function (Blueprint $table) {
-            $table->id('id_kategori_perusahaan');
-            $table->string('nama', 50);
-            $table->timestamps();
-        });
-
         // Migrasi untuk tabel perusahaan
         Schema::create('perusahaan', function (Blueprint $table) {
             $table->id('id_perusahaan');
             $table->string('nama', 50)->unique();
             $table->string('alamat', 50);
-            $table->unsignedBigInteger('id_kategori_perusahaan')->nullable();
-            $table->foreign('id_kategori_perusahaan')->references('id_kategori_perusahaan')->on('kategori_perusahaan')->onDelete('cascade');
+            $table->string('jenis_perusahaan', 50);
             $table->timestamps();
         });
-
-        DB::table('kategori_perusahaan')->insert([
-            [
-                'nama' => 'Admin',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'nama' => 'Dagang',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'nama' => 'Jasa',
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-        ]);
         
         // Insert data into perusahaan
         DB::table('perusahaan')->insert([
             [
                 'nama' => 'Admin',
                 'alamat' => 'Jl. Admin',
-                'id_kategori_perusahaan' => 1,
+                'jenis_perusahaan' => 'admin',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'nama' => 'PT. Tajin Mendunia',
                 'alamat' => 'Jl. Tajir',
-                'id_kategori_perusahaan' => 2,
+                'jenis_perusahaan' => 'jasa',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

@@ -30,5 +30,10 @@ Route::middleware('auth')->group(function () {
 
 use App\Http\Controllers\MasterDataController;
 Route::get('/masterdata/{table}', [MasterDataController::class, 'index'])->middleware(['auth', 'verified']);
+Route::post('/masterdata/store', [MasterDataController::class, 'store']);
+Route::post('/masterdata/update', [MasterDataController::class, 'update']);
+Route::post('/masterdata/delete', [MasterDataController::class, 'delete']);
+Route::get('/table-columns/{table}/{id}', [MasterDataController::class, 'getTableColumns']);
+Route::get('/masterdata/{table}/show/', [MasterDataController::class, 'show']);
 
 require __DIR__.'/auth.php';
