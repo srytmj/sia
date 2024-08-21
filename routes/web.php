@@ -56,10 +56,19 @@ Route::prefix('masterdata')->group(function () {
     Route::get('/jasa/editdetail/{id}', [JasaController::class, 'editdetail']);
     Route::put('/jasa/updatedetail/{id}', [JasaController::class, 'updatedetail']);
     Route::delete('/jasa/destroydetail/{id}', [JasaController::class, 'destroydetail'])->name('jasa.destroydetail');
-
 });
 
-
+// Transaksi
+use App\Http\Controllers\Transaksi\PembelianController;
+use App\Http\Controllers\Transaksi\PenjualanController;
+use App\Http\Controllers\Transaksi\PenggajianController;
+use App\Http\Controllers\Transaksi\PelunasanController;
+Route::prefix('transaksi')->group(function () {
+    Route::resource('pembelian', PembelianController::class);
+    Route::resource('penjualan', PenjualanController::class);
+    Route::resource('penggajian', PenggajianController::class);
+    Route::resource('pelunasan', PelunasanController::class);
+});
 
 
 

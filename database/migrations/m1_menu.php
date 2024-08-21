@@ -149,7 +149,7 @@ return new class extends Migration
             [
                 'nama_menu_sub' => 'Penjualan',
                 'url_menu' => 'penjualan',
-                'urutan_menu' => 1,
+                'urutan_menu' =>2,
                 'is_active' => 1,
                 'id_menu' => 4,
                 'created_at' => now(),
@@ -158,7 +158,7 @@ return new class extends Migration
             [
                 'nama_menu_sub' => 'Pembelian',
                 'url_menu' => 'pembelian',
-                'urutan_menu' => 2,
+                'urutan_menu' => 1,
                 'is_active' => 1,
                 'id_menu' => 4,
                 'created_at' => now(),
