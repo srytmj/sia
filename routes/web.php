@@ -26,14 +26,51 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
 });
 
-use App\Http\Controllers\MasterDataController;
-Route::get('/masterdata/{table}', [MasterDataController::class, 'index'])->middleware(['auth', 'verified']);
-Route::post('/masterdata/store', [MasterDataController::class, 'store']);
-Route::post('/masterdata/update', [MasterDataController::class, 'update']);
-Route::post('/masterdata/delete', [MasterDataController::class, 'delete']);
-Route::get('/table-columns/{table}/{id}', [MasterDataController::class, 'getTableColumns']);
-Route::get('/masterdata/{table}/show/', [MasterDataController::class, 'show']);
+// Masterdata
+use App\Http\Controllers\Masterdata\PerusahaanController;
+use App\Http\Controllers\Masterdata\UsersController;
+use App\Http\Controllers\Masterdata\RolesController;
+use App\Http\Controllers\Masterdata\CoaController;
+use App\Http\Controllers\Masterdata\JabatanController;
+use App\Http\Controllers\Masterdata\KaryawanController;
+use App\Http\Controllers\Masterdata\PelangganController;
+use App\Http\Controllers\Masterdata\SupplierController;
+use App\Http\Controllers\Masterdata\BarangController;
+use App\Http\Controllers\Masterdata\JasaController;
+
+Route::prefix('masterdata')->group(function () {
+    Route::resource('perusahaan', PerusahaanController::class);
+    Route::resource('users', UsersController::class);
+    Route::resource('user_role', RolesController::class);
+    Route::resource('coa', CoaController::class);
+    Route::resource('jabatan', JabatanController::class);
+    Route::resource('karyawan', KaryawanController::class);
+    Route::resource('pelanggan', PelangganController::class);
+    Route::resource('supplier', SupplierController::class);
+    Route::resource('barang', BarangController::class);
+    Route::resource('jasa', JasaController::class);
+    Route::post('/jasa/storedetail/', [JasaController::class, 'storedetail']);
+    Route::get('/jasa/editdetail/{id}', [JasaController::class, 'editdetail']);
+    Route::put('/jasa/updatedetail/{id}', [JasaController::class, 'updatedetail']);
+    Route::delete('/jasa/destroydetail/{id}', [JasaController::class, 'destroydetail'])->name('jasa.destroydetail');
+
+});
+
+
+
+
+
+
+
+// use App\Http\Controllers\MasterDataController;
+// Route::get('/masterdata/{table}', [MasterDataController::class, 'index'])->middleware(['auth', 'verified']);
+// Route::post('/masterdata/store', [MasterDataController::class, 'store']);
+// Route::post('/masterdata/update', [MasterDataController::class, 'update']);
+// Route::post('/masterdata/delete', [MasterDataController::class, 'delete']);
+// Route::get('/table-columns/{table}/{id}', [MasterDataController::class, 'getTableColumns']);
+// Route::get('/masterdata/{table}/show/', [MasterDataController::class, 'show']);
 
 require __DIR__.'/auth.php';
