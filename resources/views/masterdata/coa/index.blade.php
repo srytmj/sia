@@ -57,7 +57,7 @@
                                             <td>{{ $item->kode }}</td>
                                             <td>{{ $item->nama_akun }}</td>
                                             <td>{{ $item->kelompok_akun }}</td>
-                                            <td>{{ $item->posisi_dr_cr }}</td>
+                                            <td>{{ $item->posisi_d_c }}</td>
                                             <td>{{ $item->saldo_awal == 1 ? 'Ya' : 'Tidak' }}</td>
                                             <td>{{ $item->nama }}</td>
                                             <td>

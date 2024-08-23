@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->string('kode');
             $table->string('nama_akun');
             $table->string('kelompok_akun');
-            $table->string('posisi_dr_cr');
+            $table->string('posisi_d_c');
             $table->boolean('saldo_awal')->default(0); // 0 = Not Initial Balance, 1 = Initial Balance
             $table->unsignedBigInteger('id_perusahaan');
             $table->timestamps();
@@ -50,22 +50,22 @@ return new class extends Migration {
                 'header_akun' => '11',
             ],
             [
-                'kelompok_akun' => '21',
+                'kelompok_akun' => '210',
                 'nama_kelompok_akun' => 'Kewajiban',
                 'header_akun' => null,
             ],
             [
-                'kelompok_akun' => '31',
+                'kelompok_akun' => '310',
                 'nama_kelompok_akun' => 'Modal',
                 'header_akun' => null,
             ],            
             [
-                'kelompok_akun' => '41',
+                'kelompok_akun' => '410',
                 'nama_kelompok_akun' => 'Penjualan',
                 'header_akun' => null,
             ],
             [
-                'kelompok_akun' => '51',
+                'kelompok_akun' => '510',
                 'nama_kelompok_akun' => 'Pembelian',
                 'header_akun' => null,
             ],
@@ -77,7 +77,7 @@ return new class extends Migration {
                 'kode' => '01',
                 'nama_akun' => 'Kas',
                 'kelompok_akun' => 'Aktiva Lancar',
-                'posisi_dr_cr' => 'Debit',
+                'posisi_d_c' => 'Debit',
                 'saldo_awal' => 1,
                 'id_perusahaan' => 1,
                 'created_at' => now(),
@@ -87,7 +87,7 @@ return new class extends Migration {
                 'kode' => '01',
                 'nama_akun' => 'Peralatan Salon',
                 'kelompok_akun' => 'Aktiva Tetap',
-                'posisi_dr_cr' => 'Debit',
+                'posisi_d_c' => 'Debit',
                 'saldo_awal' => 1,
                 'id_perusahaan' => 1,
                 'created_at' => now(),
@@ -97,7 +97,7 @@ return new class extends Migration {
                 'kode' => '01',
                 'nama_akun' => 'Utang Usaha',
                 'kelompok_akun' => 'Kewajiban',
-                'posisi_dr_cr' => 'Kredit',
+                'posisi_d_c' => 'Kredit',
                 'saldo_awal' => 1,
                 'id_perusahaan' => 1,
                 'created_at' => now(),
@@ -107,7 +107,7 @@ return new class extends Migration {
                 'kode' => '01',
                 'nama_akun' => 'Modal Pemilik',
                 'kelompok_akun' => 'Modal',
-                'posisi_dr_cr' => 'Kredit',
+                'posisi_d_c' => 'Kredit',
                 'saldo_awal' => 1,
                 'id_perusahaan' => 1,
                 'created_at' => now(),
@@ -115,9 +115,9 @@ return new class extends Migration {
             ],
             [
                 'kode' => '01',
-                'nama_akun' => 'Penjualan Jasa',
+                'nama_akun' => 'Penjualan',
                 'kelompok_akun' => 'Penjualan',
-                'posisi_dr_cr' => 'Kredit',
+                'posisi_d_c' => 'Kredit',
                 'saldo_awal' => 1,
                 'id_perusahaan' => 1,
                 'created_at' => now(),

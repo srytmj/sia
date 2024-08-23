@@ -11,13 +11,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="newCompanyForm" method="POST" action="/masterdata/jasadetail">
+                <form id="newForm" method="POST" action="/transaksi/pembeliandetaildetail">
                     @csrf
                     <div class="form-group">
                         <label for="id_barang">Barang :</label>
                         <select class="form-control" id="id_barang" name="id_barang" required>
                             <option value="" selected hidden>Select Barang</option>
-                            @foreach ($barang as $option)
+                            @foreach ($barangs as $option)
                                 <option value="{{ $option->id_barang }}">{{ $option->nama }}</option> <!-- Ensure the correct field name here -->
                             @endforeach
                         </select>
@@ -29,7 +29,13 @@
                         <input type="integer" class="form-control" id="kuantitas" name="kuantitas" required>
                     </div>
                     
-                    <input type="id_jasa" value="{{ $jasa->id_jasa }}" id="id_jasa" name="id_jasa" hidden>
+                    {{-- Harga --}}
+                    <div class="form-group">
+                        <label for="harga">Harga :</label>
+                        <input type="integer" class="form-control" id="harga" name="harga" required>
+                    </div>
+
+                    <input type="id_pembelian" value="{{ $id_pembelian }}" id="id_pembelian" name="id_pembelian" hidden>
                 </form>
             </div>
             <div class="modal-footer">
@@ -48,29 +54,27 @@
     });
 
     $(document).ready(function() {
-        // Handle form submission for creating new data
         $('#confirmDataButton').click(function() {
-            // Get form data
-            var form = $('#newCompanyForm');
-            var formData = form.serialize(); // Serialize form data
-            
-            // Send AJAX request
+            var form = $('#newForm');
+            var formData = form.serialize();
+
             $.ajax({
-                url: '/masterdata/jasa/storedetail', // Adjust the URL if necessary
+                url: '{{ route("pembeliandetail.store") }}',
                 method: 'POST',
                 data: formData,
                 success: function(response) {
-                    // Handle success
                     $('#addmodal').modal('hide');
-                    location.reload(); // Reload the page to see the new data
+                    location.reload();
                 },
                 error: function(xhr) {
-                    // Handle error
-                    alert('Error: ' + xhr.responseText);
+                    console.error('Error details:', xhr); // Log full error object
+                    alert('An error occurred: ' + xhr.responseText);
                 }
             });
         });
     });
 </script>
+
+
 
 

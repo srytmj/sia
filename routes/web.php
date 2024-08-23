@@ -26,8 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
 });
+
+use App\Http\Controllers\Test;
+Route::get('/test/{akun}', [test::class, 'test']);
 
 // Masterdata
 use App\Http\Controllers\Masterdata\PerusahaanController;
@@ -60,14 +62,20 @@ Route::prefix('masterdata')->group(function () {
 
 // Transaksi
 use App\Http\Controllers\Transaksi\PembelianController;
+use App\Http\Controllers\Transaksi\PembeliandetailController;
 use App\Http\Controllers\Transaksi\PenjualanController;
 use App\Http\Controllers\Transaksi\PenggajianController;
 use App\Http\Controllers\Transaksi\PelunasanController;
 Route::prefix('transaksi')->group(function () {
-    Route::resource('pembelian', PembelianController::class);
-    Route::resource('penjualan', PenjualanController::class);
-    Route::resource('penggajian', PenggajianController::class);
-    Route::resource('pelunasan', PelunasanController::class);
+    Route::resource('/pembelian', PembelianController::class);
+    Route::resource('/pembeliandetail', PembeliandetailController::class);
+    Route::get('/pembelian-detail/{id_pembelian}', [PembelianDetailController::class, 'index'])->name('pembeliandetail.index');
+    Route::post('/pembeliandetail/store', [PembelianDetailController::class, 'store'])->name('pembeliandetail.store');
+    Route::post('/pembeliandetail/save', [PembelianDetailController::class, 'save'])->name('pembeliandetail.save');
+
+    // Route::resource('penjualan', PenjualanController::class);
+    // Route::resource('penggajian', PenggajianController::class);
+    // Route::resource('pelunasan', PelunasanController::class);
 });
 
 

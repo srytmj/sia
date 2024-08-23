@@ -16,7 +16,7 @@
                             <select class="form-control" id="id_perusahaan" name="id_perusahaan" required>
                                 <option value="" selected hidden>Select Perusahaan</option>
                                 @foreach ($perusahaans as $option)
-                                    <option value="{{ $option->id_perusahaan }}" selected>{{ $option->nama }}</option>
+                                    <option value="{{ $option->id_perusahaan }}">{{ $option->id_perusahaan }}. {{ $option->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -25,14 +25,19 @@
                     @endif
 
                     {{-- Supplier --}}
+
                     <div class="form-group">
                         <label for="id_supplier">Supplier :</label>
                         <select class="form-control" id="id_supplier" name="id_supplier" required>
-                            <option value="" selected hidden>Select Perusahaan</option>
-                            @foreach ($suppliers as $option)
-                                <option value="{{ $option->id_supplier }}">{{ $option->nama }}</option>
+                            <option value="" selected hidden>Select Supplier</option>
+                            @foreach ($suppliers->groupBy('id_perusahaan') as $id_perusahaan => $supplierGroup)
+                                <optgroup label="Perusahaan ID: {{ $id_perusahaan }}">
+                                    @foreach ($supplierGroup as $supplier)
+                                        <option value="{{ $supplier->id_supplier }}">{{ $supplier->nama }}</option>
+                                    @endforeach
+                                </optgroup>
                             @endforeach
-                        </select>
+                        </select>    
                     </div>
 
                     {{-- jenis transaksi --}}

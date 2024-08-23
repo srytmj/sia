@@ -63,7 +63,7 @@ class CoaController extends Controller
         $request->validate([
             'nama_akun' => 'required|string',
             'kelompok_akun' => 'required|string',
-            'posisi_dr_cr' => 'required|string',
+            'posisi_d_c' => 'required|string',
             'saldo_awal' => 'required|integer',
             'id_perusahaan' => 'required|integer|exists:perusahaan,id_perusahaan',
         ]);
@@ -85,7 +85,7 @@ class CoaController extends Controller
             'kode' => $formattedId,
             'nama_akun' => $request->nama_akun,
             'kelompok_akun' => $request->kelompok_akun,
-            'posisi_dr_cr' => $request->posisi_dr_cr,
+            'posisi_d_c' => $request->posisi_d_c,
             'saldo_awal' => $request->saldo_awal,
             'id_perusahaan' => $request->id_perusahaan,
         ]);
@@ -157,7 +157,7 @@ class CoaController extends Controller
                 'kode' => $formattedId,
                 'nama_akun' => $request->nama_akun,
                 'kelompok_akun' => $request->kelompok_akun,
-                'posisi_dr_cr' => $request->posisi_dr_cr,
+                'posisi_d_c' => $request->posisi_d_c,
                 'saldo_awal' => $request->saldo_awal,
                 'id_perusahaan' => $request->id_perusahaan,
             ]);

@@ -23,11 +23,11 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="posisi_dr_cr">Posisi Debit/Kredit:</label>
+                        <label for="posisi_d_c">Posisi Debit/Kredit:</label>
                         <br>
-                        <input type="radio" id="Debit" name="posisi_dr_cr" value="Debit">
+                        <input type="radio" id="Debit" name="posisi_d_c" value="Debit">
                         <label for="Debit">Debit</label><br>
-                        <input type="radio" id="Kredit" name="posisi_dr_cr" value="Kredit">
+                        <input type="radio" id="Kredit" name="posisi_d_c" value="Kredit">
                         <label for="Kredit">Kredit</label><br>
                     </div>
                     <div class="form-group">

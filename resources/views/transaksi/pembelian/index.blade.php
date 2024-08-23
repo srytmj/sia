@@ -45,8 +45,8 @@
                                             @if (auth()->user()->id === 1)
                                                 <th>Perusahaan</th>
                                             @endif
+                                            <th>no transaksi</th>
                                             <th>supplier</th>
-                                            <th>keterangan</th>
                                             <th>jenis</th>
                                             <th>status</th>
                                             <th>Edit</th>
@@ -60,14 +60,14 @@
                                             @if (auth()->user()->id === 1)
                                                 <td>{{ $item->nama_perusahaan }}</td>
                                             @endif
+                                            <td>{{ $item->no_transaksi }}</td>
                                             <td>{{ $item->nama_supplier }}</td>
-                                            <td>{{ $item->keterangan }}</td>
                                             <td>{{ $item->jenis_transaksi }}</td>
                                             <td>{{ $item->status }}</td>
 
                                             <td>
-                                                <!-- Tombol Edit -->
-                                                <a href="{{ route('pembelian.edit', $item->id_pembelian) }}" class="btn btn-warning">
+                                                <!-- Tombol detail -->
+                                                <a href="{{ route('pembeliandetail.index', $item->id_pembelian) }}" class="btn btn-warning">
                                                     Detail
                                                 </a>
                                             </td>
