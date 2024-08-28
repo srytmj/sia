@@ -308,15 +308,30 @@ class PembeliandetailController extends Controller
 
     public function pelunasan(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'id_pembelian' => 'required',
-            'total' => 'required',
+            'kredit' => 'required',
         ]);
 
-        $pembelian = Pembelian::find($request->id_pembelian);
+        $dbpembelian = DB::table('pembelian')
+            ->where('id_pembelian', $request->id_pembelian)
+            ->first();
 
-        $pembelian->update([
-            'tunai' => $request->total,
+        // dd($dbpembelian);
+
+        if (!$dbpembelian) {
+            return response()->json(['error' => 'Pembelian not found.'], 404);
+        }
+        
+        $tunai = $dbpembelian->tunai;
+
+        // Add the kredit value from the request to the current tunai
+        $tunai += $request->kredit;
+        // dd($tunai);
+
+        DB::table('pembelian')->where('id_pembelian', $request->id_pembelian)->update([
+            'tunai' => $tunai,
+            'kredit' => 0,
             'status' => 'lunas',
             'tanggal_pelunasan' => now(),
         ]);
@@ -328,10 +343,13 @@ class PembeliandetailController extends Controller
             'kode_akun' => Jurnal::coa('modal pemilik'), // ini ganti jadi pendapatan
             'tanggal_jurnal' => now(),
             'posisi_d_c' => 'd',
-            'nominal' => $request->total,
+            'nominal' => $request->kredit,
             'kelompok' => '3',
-            'id_perusahaan' => $pembelian->id_perusahaan, // can be changed in production
+            'id_perusahaan' => $dbpembelian->id_perusahaan, // can be changed in production
         ]);
+
+        // return to index route
+        return response()->json(['success' => 'Data saved successfully.']);
     }
     
 }

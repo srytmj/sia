@@ -72,7 +72,7 @@ Route::prefix('transaksi')->group(function () {
     Route::get('/pembelian-detail/{id_pembelian}', [PembelianDetailController::class, 'index'])->name('pembeliandetail.index');
     Route::post('/pembeliandetail/store', [PembelianDetailController::class, 'store'])->name('pembeliandetail.store');
     Route::post('/pembeliandetail/save', [PembelianDetailController::class, 'save'])->name('pembeliandetail.save');
-    Route::post('/pembeliandetail/pelunasan', [PembelianDetailController::class, 'pelunasan'])->name('pembeliandetail.update');
+    Route::post('/pembelian-detail/{id_pembelian}/pelunasan', [PembelianDetailController::class, 'pelunasan'])->name('pembeliandetail.pelunasan');
 
     // Route::resource('penjualan', PenjualanController::class);
     // Route::resource('penggajian', PenggajianController::class);

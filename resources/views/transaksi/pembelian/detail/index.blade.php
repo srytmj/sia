@@ -45,7 +45,8 @@
                                         <input type="hidden"
                                             name="id_perusahaan"value="{{ auth()->user()->id_perusahaan }}">
                                         <label for="id_perusahaan">Perusahaan:</label>
-                                        <select class="form-control" id="id_perusahaan" name="id_perusahaan" required disabled>
+                                        <select class="form-control" id="id_perusahaan" name="id_perusahaan" required
+                                            disabled>
                                             <option value="" selected hidden>Select Perusahaan</option>
                                             @foreach ($perusahaans as $option)
                                                 <option value="{{ $option->id_perusahaan }}"
@@ -54,7 +55,6 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        
                                     @else
                                         <div class="form-group">
                                             <label for="id_perusahaan">Perusahaan:</label>
@@ -97,7 +97,7 @@
                                     @endif
                                 </div>
 
-                                @if ($pembelian->status !== 'pending')
+                                @if ($pembelian->status == 'belum lunas')
                                     <!-- Adjust condition as needed -->
                                     <div class="form-group">
                                         <label for="kredit">Belum Dibayar:</label>
@@ -114,6 +114,18 @@
                                     </div>
                                 @endif
                             </form>
+                            @if ($pembelian->status == 'belum lunas')
+                                <form id="pelunasanForm"
+                                    {{-- action="{{ route('pembeliandetail.pelunasan', $pembelian->id_pembelian) }}" --}}
+                                    method="POST" style="display:inline;">
+                                    @csrf
+                                    <input type="text" name="id_pembelian" value="{{ $pembelian->id_pembelian }}"required>
+                                    <input type="text" name="kredit" value="{{ $pembelian->kredit }}" required>
+                                    <!-- Ensure this value is set -->
+
+                                    <button id="pelunasanButton" type="submit" class="btn btn-success">Lunas</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -124,7 +136,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5>Data Jasa Detail</h5>
-                            @if ($pembelian->status !== 'lunas')
+                            @if ($pembelian->status == 'pending')
                                 <!-- Adjust condition as needed -->
                                 <div class="card-header-right">
                                     <button class="btn btn-primary" data-toggle="modal" data-target="#addmodal">Tambah
@@ -141,7 +153,7 @@
                                             <th>Kuantitas</th>
                                             <th>Harga Satuan</th>
                                             <th>Subtotal</th>
-                                            @if ($pembelian->status !== 'lunas')
+                                            @if ($pembelian->status == 'pending')
                                                 <!-- Adjust condition as needed -->
                                                 <th>Edit</th>
                                                 <th>Delete</th>
@@ -161,7 +173,7 @@
                                                 <td>{{ $item->kuantitas }}</td>
                                                 <td>{{ rupiah($item->harga) }}</td>
                                                 <td>{{ rupiah($item->subtotal) }}</td>
-                                                @if ($pembelian->status !== 'lunas')
+                                                @if ($pembelian->status == 'pending')
                                                     <!-- Adjust condition as needed -->
                                                     <td>
                                                         <!-- Edit Button -->
@@ -189,7 +201,7 @@
                                         <tr>
                                             <td colspan="3" class="text-right"><strong>Total:</strong></td>
                                             <td><strong>{{ rupiah($total, 2) }}</strong></td>
-                                            @if ($pembelian->status !== 'lunas' && $pembelian->status !== 'belum lunas')
+                                            @if ($pembelian->status == 'pending')
                                                 <!-- Adjust condition as needed -->
                                                 <td colspan="2"></td>
                                             @endif
@@ -235,7 +247,8 @@
                                     <div id="credit_fields" style="display: none;">
                                         <div class="form-group">
                                             <label for="dibayar_dimuka">Dibayar Dimuka:</label>
-                                            <input type="number" class="form-control" id="dibayar_dimuka" name="dibayar_dimuka" />
+                                            <input type="number" class="form-control" id="dibayar_dimuka"
+                                                name="dibayar_dimuka" />
                                         </div>
                                         <div class="form-group">
                                             {{-- <label>Dibayar Tunai:</label> --}}
@@ -243,7 +256,7 @@
                                         </div>
                                     </div>
 
-                                    
+
                                     <div id="tunai_fields" style="display: none">
                                         <div class="form-group">
                                             <h3 id="total_value">Dibayar Tunai: {{ rupiah($total) }}</h3>
@@ -258,13 +271,6 @@
                                                 Data</button>
 
                                             {{-- <a href="{{ route('pembeliandetail.storepembelian') }}" class="btn btn-primary data">Simpan Data</a> --}}
-                                        @endif
-
-                                        @if ($pembelian->status == 'belum lunas')
-                                            <!-- Adjust condition as needed -->
-                                            <a href="{{ route('pembelian.pelunasan', $pembelian->id_pembelian) }}"
-                                                class="btn btn-success">Lunas</a>
-                                            
                                         @endif
                                         <a href="{{ route('dashboard') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
@@ -385,6 +391,38 @@
                     data: formData,
                     success: function(response) {
                         $('#addmodal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr) {
+                        console.error('Error details:', xhr); // Log full error object
+                        alert('An error occurred: ' + xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            $('#pelunasanButton').click(function() {
+                var form = $('#pelunasanForm');
+                var formData = form.serialize();
+                var idPembelian = $('input[name="id_pembelian"]').val(); // Get id_pembelian value
+                var kredit = $('input[name="kredit"]').val(); // Get total value
+
+                if (!idPembelian || !kredit) {
+                    alert('ID Pembelian and kredit fields are required.');
+                    return; // Stop execution if validation fails
+                }
+
+                $.ajax({
+                    url: '{{ url('transaksi/pembelian-detail') }}/' + idPembelian +
+                    '/pelunasan', // Correct URL with id_pembelian
+                    method: 'POST',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                            'content') // Ensure CSRF token is included
+                    },
+                    success: function(response) {
                         location.reload();
                     },
                     error: function(xhr) {
