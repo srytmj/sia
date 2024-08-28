@@ -259,6 +259,13 @@
 
                                             {{-- <a href="{{ route('pembeliandetail.storepembelian') }}" class="btn btn-primary data">Simpan Data</a> --}}
                                         @endif
+
+                                        @if ($pembelian->status == 'belum lunas')
+                                            <!-- Adjust condition as needed -->
+                                            <a href="{{ route('pembelian.pelunasan', $pembelian->id_pembelian) }}"
+                                                class="btn btn-success">Lunas</a>
+                                            
+                                        @endif
                                         <a href="{{ route('dashboard') }}" class="btn btn-secondary">Kembali</a>
                                     </div>
 

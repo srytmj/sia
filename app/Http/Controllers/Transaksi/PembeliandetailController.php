@@ -305,5 +305,33 @@ class PembeliandetailController extends Controller
     
         return response()->json(['success' => 'Data saved successfully.']);
     }
+
+    public function pelunasan(Request $request)
+    {
+        $validated = $request->validate([
+            'id_pembelian' => 'required',
+            'total' => 'required',
+        ]);
+
+        $pembelian = Pembelian::find($request->id_pembelian);
+
+        $pembelian->update([
+            'tunai' => $request->total,
+            'status' => 'lunas',
+            'tanggal_pelunasan' => now(),
+        ]);
+
+        // Record to jurnal
+        DB::table('jurnal')->insert([
+            'id_transaksi' => $request->id_pembelian,
+            'jenis_transaksi' => 'pembelian',
+            'kode_akun' => Jurnal::coa('modal pemilik'), // ini ganti jadi pendapatan
+            'tanggal_jurnal' => now(),
+            'posisi_d_c' => 'd',
+            'nominal' => $request->total,
+            'kelompok' => '3',
+            'id_perusahaan' => $pembelian->id_perusahaan, // can be changed in production
+        ]);
+    }
     
 }
