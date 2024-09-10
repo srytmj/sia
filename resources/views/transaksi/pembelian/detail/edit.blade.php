@@ -10,11 +10,12 @@
             <div class="modal-body">
                 <form id="editform">
                     @csrf
+
                     <div class="form-group">
                         <label for="id_barang">Barang :</label>
                         <select class="form-control" id="id_barang" name="id_barang" required>
                             <option value="" selected hidden>Select Barang</option>
-                            @foreach ($barang as $option)
+                            @foreach ($barangs as $option)
                                 <option value="{{ $option->id_barang }}">{{ $option->nama }}</option> <!-- Ensure the correct field name here -->
                             @endforeach
                         </select>
@@ -26,7 +27,16 @@
                         <input type="integer" class="form-control" id="kuantitas" name="kuantitas" required>
                     </div>
                     
-                    <input type="id_jasa" value="{{ $jasa->id_jasa }}" id="id_jasa" name="id_jasa" hidden>
+                    {{-- Harga --}}
+                    <div class="form-group">
+                        <label for="harga">Harga :</label>
+                        <input type="integer" class="form-control" id="harga" name="harga" required>
+                    </div>
+                    
+                    {{-- <input type="id_detail" value="{{ $item->id_pembelian_detail }}" id="id_pembelian_detail" name="id_pembelian_detail" hidden> --}}
+
+                    <input type="text" name="id_pembelian_detail">
+                    {{-- <input type="text" value="{{$option->kuantitas}}"> --}}
                 </form>
 
             </div>
@@ -46,18 +56,19 @@
 
             // Fetch current data and populate the form
             $.ajax({
-                url: '/masterdata/jasa/editdetail/' + id,
+                url: '/transaksi/pembelian-detail/show/' + id,
                 method: 'GET',
                 success: function(data) {
                     // Populate the form fields (input)
-                    $('input[name="kuantitas"]').val(data.jasa_detail.kuantitas);
-                    $('input[name="id_jasa_detail"]').val(data.jasa_detail.id_jasa_detail);
+                    $('input[name="kuantitas"]').val(data.pembelian_detail.kuantitas);
+                    $('input[name="harga"]').val(data.pembelian_detail.harga);
+                    $('input[name="id_pembelian_detail"]').val(data.pembelian_detail.id_pembelian_detail);
 
                     // Populate the form fields (dropdown)
-                    $('select[name="id_barang"]').val(data.jasa_detail.id_barang);
+                    $('select[name="id_barang"]').val(data.pembelian_detail.id_barang);
 
                     // Update form action URL
-                    $('#editform').attr('action', '/masterdata/jasa/updatedetail/' + id);
+                    $('#editform').attr('action', '/transaksi/pembelian-detail/update/' + id);
 
                     // Show the modal
                     $('#editmodal').modal('show');

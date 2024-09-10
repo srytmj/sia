@@ -33,7 +33,7 @@
         var id = $('#delete-ids').val();
 
         $.ajax({
-            url: '/masterdata/jasa/destroydetail/' + id, // Ensure the URL matches the route definition
+            url: '/transaksi/pembelian-detail/delete/' + id, // Ensure the URL matches the route definition
             method: 'DELETE', // Use DELETE method
             data: {
                 _token: '{{ csrf_token() }}' // Include CSRF token

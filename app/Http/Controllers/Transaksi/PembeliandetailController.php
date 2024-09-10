@@ -34,6 +34,12 @@ class PembeliandetailController extends Controller
             ->where('pembelian.id_pembelian', $id_pembelian)
             ->get();
 
+        $editBarang = DB::table('pembelian_detail')
+            ->join('barang', 'pembelian_detail.id_barang', '=', 'barang.id_barang')
+            ->select('pembelian_detail.*', 'barang.nama', 'barang.satuan')
+            ->where('id_pembelian', $id_pembelian)
+            ->get();
+
         if ($user->id_perusahaan == 1) {
             $perusahaans = DB::table('perusahaan')
                 ->where('perusahaan.id_perusahaan', '!=', 1)
@@ -102,7 +108,12 @@ class PembeliandetailController extends Controller
      */
     public function show($id)
     {
-        // 
+        // get data 
+        $pembeliandetail = Pembeliandetail::find($id);
+
+        return response()->json($data = [
+            'pembelian_detail' => $pembeliandetail
+        ]); 
     }
 
     /**

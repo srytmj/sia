@@ -135,12 +135,11 @@
                 <div class="col-sm-12 mt-4">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Data Jasa Detail</h5>
+                            <h5>Data Detail Pembelian</h5>
                             @if ($pembelian->status == 'pending')
                                 <!-- Adjust condition as needed -->
                                 <div class="card-header-right">
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#addmodal">Tambah
-                                        Data</button>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#addmodal">Tambah Data</button>
                                 </div>
                             @endif
                         </div>
@@ -169,6 +168,7 @@
                                                 $total += $item->subtotal;
                                             @endphp
                                             <tr>
+                                                {{-- <td>{{ $item->id_pembelian_detail }}</td> --}}
                                                 <td>{{ $item->nama }}</td>
                                                 <td>{{ $item->kuantitas }}</td>
                                                 <td>{{ rupiah($item->harga) }}</td>
@@ -287,6 +287,8 @@
     @include('transaksi/pembelian/detail/modal')
     @include('transaksi/pembelian/detail/modal')
     @include('transaksi/pembelian/detail/delete')
+    @include('transaksi/pembelian/detail/edit')
+
 
     <script>
         $(document).ready(function() {

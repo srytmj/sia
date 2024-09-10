@@ -73,6 +73,10 @@ Route::prefix('transaksi')->group(function () {
     Route::post('/pembeliandetail/store', [PembelianDetailController::class, 'store'])->name('pembeliandetail.store');
     Route::post('/pembeliandetail/save', [PembelianDetailController::class, 'save'])->name('pembeliandetail.save');
     Route::post('/pembelian-detail/{id_pembelian}/pelunasan', [PembelianDetailController::class, 'pelunasan'])->name('pembeliandetail.pelunasan');
+    Route::post('/pembelian-detail/edit/{id_pembelian}', [PembeliandetailController::class, 'update']);
+    Route::get('/pembelian-detail/show/{id_pembelian}', [PembeliandetailController::class, 'show']);
+    Route::delete('/pembelian-detail/delete/{id_pembelian}', [PembeliandetailController::class, 'destroydetail']);
+    Route::put('/pembelian-detail/update/{id}', [PembeliandetailController::class, 'updatedetail']);
 
     // Route::resource('penjualan', PenjualanController::class);
     // Route::resource('penggajian', PenggajianController::class);
