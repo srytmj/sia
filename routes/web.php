@@ -83,6 +83,16 @@ Route::prefix('transaksi')->group(function () {
     // Route::resource('pelunasan', PelunasanController::class);
 });
 
+// Laporan
+use App\Http\Controllers\Laporan\JurnalController;
+Route::prefix('laporan')->group(function () {
+    Route::resource('jurnal', JurnalController::class);
+    Route::get('jurnal', [JurnalController::class,'jurnalumum'])->middleware(['auth']);
+    Route::get('viewdatajurnalumum/{periode}', [JurnalController::class,'viewdatajurnalumum'])->middleware(['auth']);
+    Route::get('bukubesar', [JurnalController::class,'bukubesar'])->middleware(['auth']);
+    Route::get('viewdatabukubesar/{periode}/{akun}', [JurnalController::class,'viewdatabukubesar'])->middleware(['auth']);
+
+});
 
 
 
